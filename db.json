@@ -1,0 +1,25 @@
+{
+	"gastos": [
+		{
+			"id": "1",
+			"descripcion": "Almuerzo",
+			"monto": 1500,
+			"categoria": "comida",
+			"fecha": "2024-11-01"
+		},
+		{
+			"id": "2",
+			"descripcion": "Juego Steam",
+			"monto": 800,
+			"categoria": "transporte",
+			"fecha": "2024-11-02"	
+		}
+	],
+	"categorias": [
+		{ "id": "1", "nombre": "comida"},	
+		{ "id": "2", "nombre": "transporte"},	
+		{ "id": "3", "nombre": "ocio"},	
+		{ "id": "4", "nombre": "solud"},	
+		{ "id": "5", "nombre": "otro"}
+	]
+}	
