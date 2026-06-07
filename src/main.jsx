@@ -4,12 +4,6 @@ import './index.css'
 import App from './App.jsx'
 import axios from 'axios'
 
-const promise = axios.get('http://localhost:3001/gastos')
-console.log(promise)
-
-const promise2 = axios.get('http://localhost:3001/categorias')
-console.log(promise2)
-
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />

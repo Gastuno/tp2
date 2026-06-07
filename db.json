@@ -1,25 +1,153 @@
 {
-	"gastos": [
-		{
-			"id": "1",
-			"descripcion": "Almuerzo",
-			"monto": 1500,
-			"categoria": "comida",
-			"fecha": "2024-11-01"
-		},
-		{
-			"id": "2",
-			"descripcion": "Juego Steam",
-			"monto": 800,
-			"categoria": "transporte",
-			"fecha": "2024-11-02"	
-		}
-	],
-	"categorias": [
-		{ "id": "1", "nombre": "comida"},	
-		{ "id": "2", "nombre": "transporte"},	
-		{ "id": "3", "nombre": "ocio"},	
-		{ "id": "4", "nombre": "solud"},	
-		{ "id": "5", "nombre": "otro"}
-	]
-}	
+  "gastos": [
+    {
+      "id": "1",
+      "descripcion": "Almuerzo",
+      "monto": 1500,
+      "categoria": 1,
+      "fecha": "2024-11-01"
+    },
+    {
+      "descripcion": "sdddddddddddddddddsddddddddddd",
+      "monto": "999999999",
+      "categoria": "5",
+      "fecha": "2026-06-24",
+      "id": "VtYpg6ReD_w"
+    },
+    {
+      "descripcion": "dfdfdf",
+      "monto": "999999999",
+      "categoria": "",
+      "fecha": "2026-06-04",
+      "id": "al43KlW_uew"
+    },
+    {
+      "descripcion": "3434",
+      "monto": "343434",
+      "categoria": "",
+      "fecha": "2026-06-04",
+      "id": "tnMUC_Ez4rQ"
+    },
+    {
+      "descripcion": "dsd",
+      "monto": "4545",
+      "categoria": "",
+      "fecha": "2026-06-05",
+      "id": "gXpvwtNYm1U"
+    },
+    {
+      "descripcion": "3434",
+      "monto": "343434",
+      "categoria": "",
+      "fecha": "2026-07-02",
+      "id": "MKwaAzvLYmk"
+    },
+    {
+      "descripcion": "2323",
+      "monto": "55555",
+      "categoria": "",
+      "fecha": "2026-06-26",
+      "id": "uqbFfRzoKLo"
+    },
+    {
+      "descripcion": "gd435342",
+      "monto": "13121212",
+      "categoria": "",
+      "fecha": "2026-07-11",
+      "id": "CwcJlL5jcQo"
+    },
+    {
+      "descripcion": "56565",
+      "monto": "888888",
+      "categoria": "",
+      "fecha": "2026-08-03",
+      "id": "OrB_ewx0KOI"
+    },
+    {
+      "descripcion": "56565",
+      "monto": "888888",
+      "categoria": "",
+      "fecha": "2026-08-03",
+      "id": "YWjrvCcjJdA"
+    },
+    {
+      "descripcion": "ggffgfg",
+      "monto": "343434",
+      "categoria": "",
+      "fecha": "2026-06-19",
+      "id": "BkhNyR6C8XU"
+    },
+    {
+      "descripcion": "343434",
+      "monto": "23232323",
+      "categoria": "3",
+      "fecha": "2026-06-12",
+      "id": "ncmR4Xsvfp0"
+    },
+    {
+      "descripcion": "2323",
+      "monto": "232323",
+      "categoria": "",
+      "fecha": "2026-07-09",
+      "id": "Kts_LLkMSIk"
+    },
+    {
+      "descripcion": "34",
+      "monto": "343434",
+      "categoria": "",
+      "fecha": "2026-07-08",
+      "id": "wgfIrCBjg70"
+    },
+    {
+      "descripcion": "dfdf",
+      "monto": "343434",
+      "categoria": "2",
+      "fecha": "2026-07-01",
+      "id": "DXTwXrmPNBc"
+    },
+    {
+      "descripcion": "dfdf",
+      "monto": "23232323",
+      "categoria": "",
+      "fecha": "2026-07-08",
+      "id": "0MVXea1rLa4"
+    },
+    {
+      "descripcion": "gfgfg",
+      "monto": "777777",
+      "categoria": "",
+      "fecha": "2026-06-13",
+      "id": "RrdoNscUdC4"
+    },
+    {
+      "descripcion": "343434",
+      "monto": "34343434",
+      "categoria": "1",
+      "fecha": "2026-07-09",
+      "id": "HzzlCNU68zw"
+    }
+  ],
+  "categorias": [
+    {
+      "id": "1",
+      "nombre": "comida"
+    },
+    {
+      "id": "2",
+      "nombre": "transporte"
+    },
+    {
+      "id": "3",
+      "nombre": "ocio"
+    },
+    {
+      "id": "4",
+      "nombre": "solud"
+    },
+    {
+      "id": "5",
+      "nombre": "otro"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
