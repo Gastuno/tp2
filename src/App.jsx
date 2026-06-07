@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import axios from 'axios'
+import { fetchExpenses, fetchCategories, addExpense, deleteExpense } from './gastos';
 
 function App() {
     const [loading, setLoading] = useState(false);
@@ -12,7 +12,6 @@ function App() {
     const [newDate, setNewDate] = useState('');
     const [showAddForm, setShowAddForm] = useState(false);
 
-
     const resetForm = () => {
       setNewDescription('');
       setNewAmount('');
@@ -20,58 +19,89 @@ function App() {
       setNewDate('');
     };
 
-    const fetchExpenses = async () => {
+    const loadExpenses = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/gastos');
-        setExpenses(response.data);
+        const data = await fetchExpenses();
+        setExpenses(data);
       } catch (error) {
-        console.error("Error cargando gastos", error);
+        console.error('Error cargando gastos', error);
       }
     };
 
-    const fetchCategories = async () => {
+    const loadCategories = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/categorias');
-        setCategories(response.data);
+        const data = await fetchCategories();
+        setCategories(data);
       } catch (error) {
-        console.error("Error cargando gastos", error);
+        console.error('Error cargando categorias', error);
       }
     };
 
     const handleDeleteExpense = async (id) => {
       try {
-        await axios.delete(`http://localhost:3001/gastos/${id}`);
-        setExpenses(expenses.filter(expense => expense.id !== id));
-      } catch (error) {
-        console.error("Error eliminando gasto", error);
+        if (window.confirm("Seguro que deseas eliminar esta expensa?"))
+        {
+          await deleteExpense(id);
+          setExpenses((prev) => prev.filter((expense) => expense.id !== id));
+        }
+      } 
+        catch (error) {
+        console.error('Error eliminando gasto', error);
       }
     };
 
     const handleAddExpense = async (newExpense) => {
       try {
-        const response = await axios.post('http://localhost:3001/gastos', newExpense);
-        fetchExpenses();
+        await addExpense(newExpense);
+        await loadExpenses();
         setLoading(false);
-        setShowAddForm(false)
+        setShowAddForm(false);
         resetForm();
       } catch (error) {
-        console.error("Error eliminando gasto", error);
+        console.error('Error agregando gasto', error);
+        setLoading(false);
       }
     };
 
     useEffect(() => {
-      fetchExpenses();
-      fetchCategories();
+      loadExpenses();
+      loadCategories();
     }, []);
+
+
+    const totalAmount = expenses.reduce(
+      (acc, expense) => acc + Number(expense.monto), 0
+    );
+
+    const sortedHighest = [...expenses].sort(
+      (a, b) => Number(b.monto) - Number(a.monto)
+    );
+    
+    const [selectedCategory, setSelectedCategory] = useState('');
+
+    const filteredExpenses = selectedCategory
+      ? expenses.filter(expense => expense.categoria == selectedCategory)
+      : expenses;
 
   return (
     <>
       <div className="content-section">
           <h2>Gastos</h2>
-          <button onClick={() => setShowAddForm(true)}>Agregar</button>
+          <h3>Total Gastado: {totalAmount}$</h3>
+          <h3>Mayor Gasto: {sortedHighest[0]?.descripcion} - {sortedHighest[0]?.monto}$</h3>
+          <button onClick={() => setShowAddForm(true)}>Agregar nuevo gasto</button>
+          <div><label>Filtrar</label><br/><select value={selectedCategory} onChange={e=>setSelectedCategory(e.target.value)} required>
+            <option value="">todos </option>
+              {categories.map(category => (
+            <option key={category.id} value={category.id}>{category.nombre}</option>
+          ))}
+          </select></div>
+          {filteredExpenses.length > 0 ? (
           <table className="expenses-table">
+            <thead> Total: {filteredExpenses.length} </thead>
             <thead>
               <tr>
+                <th></th>
                 <th>Id</th>
                 <th>Descripcion</th>
                 <th>Monto</th>
@@ -80,15 +110,15 @@ function App() {
               </tr>
             </thead>
             <tbody>
-              
-              {expenses.map(expense => {
+              {filteredExpenses.map((expense, index) => {
                 const cat = categories.find(category => category.id == expense.categoria);
                 console.log(cat);
                 return (
                 <tr key={expense.id}>
+                  <td>{index + 1}</td>
                   <td>{expense.id}</td>
                   <td>{expense.descripcion}</td>
-                  <td>{expense.monto}</td>
+                  <td>{expense.monto}$</td>
                   <td>{cat ? cat.nombre : expense.categoria}</td>
                   <td>{expense.fecha}</td>
                   <td><button onClick={() => handleDeleteExpense(expense.id)}>Eliminar</button></td>
@@ -97,11 +127,15 @@ function App() {
               })}
             </tbody>
           </table>
+          ) : (
+            <p>No hay gastos en la categoria seleccionada! :)</p>
+          )}
       </div>
 
       {showAddForm && (<div className="modal-overlay">
           <div className="modal-content">
             <form onSubmit={(e) => {
+              e.preventDefault();
               setLoading(true);
               handleAddExpense({
                 descripcion: newDescription,
@@ -114,7 +148,7 @@ function App() {
               <div><label>Descripción</label><br/><textarea value={newDescription} maxLength={30} onChange={e=>setNewDescription(e.target.value)} required /></div>
               <div><label>Monto</label><br/><input value={newAmount} max={999999999} type="number"onChange={e=>setNewAmount(e.target.value)} required /></div>
               <div><label>Categoria</label><br/><select value={newCategory} onChange={e=>setNewCategory(e.target.value)} required>
-                <option value="">Selecciona una categoría </option>
+                <option hidden value="">Selecciona una categoría </option>
                 {categories.map(category => (
                   <option key={category.id} value={category.id}>{category.nombre}</option>
                 ))}
